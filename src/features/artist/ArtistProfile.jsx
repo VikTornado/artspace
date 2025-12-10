@@ -8,8 +8,8 @@ const artist = {
   name: 'StellarArt',
   username: '@stellar_art',
   bio: 'Digital artist exploring the boundaries of the cosmos through generative art and 3D rendering. Creating visual experiences that transcend reality.',
-  avatar: 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&auto=format&fit=crop&q=60',
-  cover: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1600&auto=format&fit=crop&q=60',
+  avatar: '/images/avatar.jpg',
+  cover: '/images/cover.jpg',
   location: 'Kyiv, Ukraine',
   website: 'stellar.art',
   stats: {
@@ -18,9 +18,9 @@ const artist = {
     views: '1.2M'
   },
   works: [
-    { id: 1, title: 'Cosmic Dreams', artist: 'StellarArt', image: 'https://images.unsplash.com/photo-1634152962476-4b8a00e1915c?w=800&auto=format&fit=crop&q=60', price: '0.5 ETH' },
-    { id: 7, title: 'Nebula Whisper', artist: 'StellarArt', image: 'https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=800&auto=format&fit=crop&q=60', price: '0.7 ETH' },
-    { id: 8, title: 'Star Dust', artist: 'StellarArt', image: 'https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?w=800&auto=format&fit=crop&q=60', price: '0.4 ETH' },
+    { id: 1, title: 'Cosmic Dreams', artist: 'StellarArt', image: '/images/cosmic-dreams.jpg', price: '0.5 ETH' },
+    { id: 7, title: 'Nebula Whisper', artist: 'StellarArt', image: '/images/nebula-whisper.jpg', price: '0.7 ETH' },
+    { id: 8, title: 'Star Dust', artist: 'StellarArt', image: '/images/star-dust.jpg', price: '0.4 ETH' },
   ]
 };
 
