@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect, useCallback } from 'react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLanguage } from '../../context/LanguageContext';
 import { useGallery } from '../../context/GalleryContext';
 import ArtworkCard from './ArtworkCard';
@@ -22,6 +23,31 @@ export default function GalleryGrid() {
     setPaymentWork(work);
   };
 
+  const handleNext = useCallback(() => {
+    if (!selectedWork) return;
+    const currentIndex = filteredWorks.findIndex(w => w.id === selectedWork.id);
+    const nextIndex = (currentIndex + 1) % filteredWorks.length;
+    setSelectedWork(filteredWorks[nextIndex]);
+  }, [selectedWork, filteredWorks]);
+
+  const handlePrev = useCallback(() => {
+    if (!selectedWork) return;
+    const currentIndex = filteredWorks.findIndex(w => w.id === selectedWork.id);
+    const prevIndex = (currentIndex - 1 + filteredWorks.length) % filteredWorks.length;
+    setSelectedWork(filteredWorks[prevIndex]);
+  }, [selectedWork, filteredWorks]);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!selectedWork) return;
+      if (e.key === 'ArrowRight') handleNext();
+      if (e.key === 'ArrowLeft') handlePrev();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [selectedWork, handleNext, handlePrev]);
+
   return (
     <div className="py-12">
       <div className="container mx-auto px-4">
@@ -43,12 +69,26 @@ export default function GalleryGrid() {
         {/* Detail Modal */}
         <Modal isOpen={!!selectedWork} onClose={() => setSelectedWork(null)}>
           {selectedWork && (
-            <div className="flex flex-col md:flex-row h-full max-h-[80vh] md:max-h-none">
-              <div className="md:w-1/2 h-64 md:h-auto">
+            <div className="flex flex-col md:flex-row h-full max-h-[80vh] md:max-h-none relative">
+              {/* Navigation Buttons */}
+              <button 
+                onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+                className="absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors md:left-4"
+              >
+                <ChevronLeft size={24} />
+              </button>
+              <button 
+                onClick={(e) => { e.stopPropagation(); handleNext(); }}
+                className="absolute right-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors md:right-[52%] lg:right-[52%]"
+              >
+                <ChevronRight size={24} />
+              </button>
+
+              <div className="md:w-1/2 h-64 md:h-auto relative bg-black/5">
                 <img 
                   src={selectedWork.image} 
                   alt={selectedWork.title} 
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-contain md:object-cover"
                 />
               </div>
               <div className="p-6 md:w-1/2 flex flex-col justify-between overflow-y-auto">
