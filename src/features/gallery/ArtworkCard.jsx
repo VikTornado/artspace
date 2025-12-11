@@ -2,7 +2,7 @@ import { useLanguage } from '../../context/LanguageContext';
 import { Card, CardContent, CardFooter } from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 
-export default function ArtworkCard({ work, onClick }) {
+export default function ArtworkCard({ work, onClick, onBuy }) {
   const { t } = useLanguage();
 
   return (
@@ -25,7 +25,7 @@ export default function ArtworkCard({ work, onClick }) {
         <span className="font-bold text-purple-600 dark:text-purple-400">{work.price}</span>
         <Button size="sm" onClick={(e) => {
           e.stopPropagation();
-          // Buy logic
+          onBuy && onBuy();
         }}>{t('common.buy')}</Button>
       </CardFooter>
     </Card>

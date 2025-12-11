@@ -4,17 +4,23 @@ import { useGallery } from '../../context/GalleryContext';
 import ArtworkCard from './ArtworkCard';
 import FilterBar from './FilterBar';
 import Modal from '../../components/ui/Modal';
+import PaymentModal from '../../components/ui/PaymentModal';
 import Button from '../../components/ui/Button';
 
 export default function GalleryGrid() {
   const [filter, setFilter] = useState('all');
   const [selectedWork, setSelectedWork] = useState(null);
+  const [paymentWork, setPaymentWork] = useState(null);
   const { t } = useLanguage();
   const { works } = useGallery();
 
   const filteredWorks = filter === 'all' 
     ? works 
     : works.filter(work => work.category === filter);
+
+  const handleBuy = (work) => {
+    setPaymentWork(work);
+  };
 
   return (
     <div className="py-12">
@@ -29,10 +35,12 @@ export default function GalleryGrid() {
               key={work.id} 
               work={work} 
               onClick={() => setSelectedWork(work)}
+              onBuy={() => handleBuy(work)}
             />
           ))}
         </div>
 
+        {/* Detail Modal */}
         <Modal isOpen={!!selectedWork} onClose={() => setSelectedWork(null)}>
           {selectedWork && (
             <div className="flex flex-col md:flex-row h-full max-h-[80vh] md:max-h-none">
@@ -56,12 +64,22 @@ export default function GalleryGrid() {
                 </div>
                 <div className="flex items-center justify-between mt-6">
                   <span className="text-2xl font-bold text-gray-900 dark:text-white">{selectedWork.price}</span>
-                  <Button size="lg">{t('common.buy')}</Button>
+                  <Button size="lg" onClick={() => {
+                    setSelectedWork(null);
+                    handleBuy(selectedWork);
+                  }}>{t('common.buy')}</Button>
                 </div>
               </div>
             </div>
           )}
         </Modal>
+
+        {/* Payment Modal */}
+        <PaymentModal 
+          isOpen={!!paymentWork} 
+          onClose={() => setPaymentWork(null)} 
+          work={paymentWork}
+        />
       </div>
     </div>
   );
