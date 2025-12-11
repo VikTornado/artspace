@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Check, Loader2 } from 'lucide-react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 import Modal from './Modal';
 import Button from './Button';
 
