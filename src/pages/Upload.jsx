@@ -190,7 +190,7 @@ export default function Upload() {
               </div>
 
               <div className="pt-4">
-                <Button className="w-full" size="lg" type="submit">Upload Artwork</Button>
+                <Button className="w-full" size="lg" type="submit">{t('common.upload')}</Button>
               </div>
             </form>
           </CardContent>

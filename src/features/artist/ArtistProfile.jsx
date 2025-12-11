@@ -1,4 +1,5 @@
 import { MapPin, Link as LinkIcon, Twitter, Instagram } from 'lucide-react';
+import { useLanguage } from '../../context/LanguageContext';
 import { Card, CardContent } from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 import ArtworkCard from '../gallery/ArtworkCard';
@@ -25,6 +26,8 @@ const artist = {
 };
 
 export default function ArtistProfile() {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-20">
       {/* Cover Image */}
@@ -55,8 +58,8 @@ export default function ArtistProfile() {
                 <p className="text-purple-600 dark:text-purple-400 font-medium">{artist.username}</p>
               </div>
               <div className="flex gap-3 justify-center md:justify-start">
-                <Button>Follow</Button>
-                <Button variant="outline">Message</Button>
+                <Button>{t('common.follow')}</Button>
+                <Button variant="outline">{t('common.message')}</Button>
               </div>
             </div>
 

@@ -34,9 +34,9 @@ export default function FeaturedArtworks() {
     <section className="py-16 bg-gray-50 dark:bg-gray-900/50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center mb-10">
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">Featured Artworks</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white">{t('gallery.title')}</h2>
           <Link to="/gallery">
-            <Button variant="ghost">View All</Button>
+            <Button variant="ghost">{t('common.view')}</Button>
           </Link>
         </div>
 
@@ -56,7 +56,7 @@ export default function FeaturedArtworks() {
               </CardContent>
               <CardFooter className="p-4 pt-0 flex justify-between items-center">
                 <span className="font-bold text-purple-600 dark:text-purple-400">{work.price}</span>
-                <Button size="sm">Buy Now</Button>
+                <Button size="sm">{t('common.buy')}</Button>
               </CardFooter>
             </Card>
           ))}

@@ -1,7 +1,10 @@
+import { useLanguage } from '../../context/LanguageContext';
 import { Card, CardContent, CardFooter } from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 
 export default function ArtworkCard({ work, onClick }) {
+  const { t } = useLanguage();
+
   return (
     <Card 
       className="overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer"
@@ -23,7 +26,7 @@ export default function ArtworkCard({ work, onClick }) {
         <Button size="sm" onClick={(e) => {
           e.stopPropagation();
           // Buy logic
-        }}>Buy Now</Button>
+        }}>{t('common.buy')}</Button>
       </CardFooter>
     </Card>
   );

@@ -28,6 +28,21 @@ export const translations = {
         '3d': '3D',
       },
     },
+    wallet: {
+      connect: 'Підключити гаманець',
+      connecting: 'Підключення...',
+      connected: 'Підключено',
+      title: 'Підключити гаманець',
+      subtitle: 'Оберіть гаманець для підключення до ArtSpace.',
+      popular: 'Популярний',
+    },
+    common: {
+      buy: 'Купити',
+      view: 'Дивитись всі',
+      follow: 'Стежити',
+      message: 'Написати',
+      upload: 'Завантажити роботу',
+    },
     footer: {
       rights: 'Всі права захищено.',
     }
@@ -56,6 +71,21 @@ export const translations = {
         ai: 'AI Art',
         '3d': '3D',
       },
+    },
+    wallet: {
+      connect: 'Connect Wallet',
+      connecting: 'Connecting...',
+      connected: 'Connected',
+      title: 'Connect Wallet',
+      subtitle: 'Choose a wallet to connect to ArtSpace.',
+      popular: 'Popular',
+    },
+    common: {
+      buy: 'Buy Now',
+      view: 'View All',
+      follow: 'Follow',
+      message: 'Message',
+      upload: 'Upload Artwork',
     },
     footer: {
       rights: 'All rights reserved.',

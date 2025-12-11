@@ -56,7 +56,7 @@ export default function GalleryGrid() {
                 </div>
                 <div className="flex items-center justify-between mt-6">
                   <span className="text-2xl font-bold text-gray-900 dark:text-white">{selectedWork.price}</span>
-                  <Button size="lg">Buy Now</Button>
+                  <Button size="lg">{t('common.buy')}</Button>
                 </div>
               </div>
             </div>
