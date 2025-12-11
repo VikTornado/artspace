@@ -1,14 +1,24 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Upload as UploadIcon, X, Image as ImageIcon } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import { useGallery } from '../context/GalleryContext';
 import Button from '../components/ui/Button';
 import { Card, CardContent } from '../components/ui/Card';
 
 export default function Upload() {
   const { t } = useLanguage();
+  const { addWork } = useGallery();
+  const navigate = useNavigate();
   const [dragActive, setDragActive] = useState(false);
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
+  const [formData, setFormData] = useState({
+    title: '',
+    description: '',
+    category: 'nft',
+    price: '',
+  });
 
   const handleDrag = (e) => {
     e.preventDefault();
@@ -50,6 +60,26 @@ export default function Upload() {
     setPreview(null);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!preview || !formData.title || !formData.price) {
+      alert('Please fill in all required fields and upload an image.');
+      return;
+    }
+
+    const newWork = {
+      title: formData.title,
+      artist: 'You', // In a real app, this would come from the user profile
+      category: formData.category,
+      image: preview, // Using the data URL for local preview
+      price: `${formData.price} ETH`,
+      description: formData.description,
+    };
+
+    addWork(newWork);
+    navigate('/gallery');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 py-12">
       <div className="container mx-auto px-4 max-w-2xl">
@@ -57,7 +87,7 @@ export default function Upload() {
         
         <Card>
           <CardContent className="p-6">
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
               {/* File Upload Area */}
               <div 
                 className={`relative border-2 border-dashed rounded-xl p-8 text-center transition-colors ${
@@ -110,8 +140,11 @@ export default function Upload() {
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Title</label>
                   <input 
                     type="text" 
+                    value={formData.title}
+                    onChange={(e) => setFormData({...formData, title: e.target.value})}
                     placeholder="e.g. Cosmic Dreams"
                     className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                    required
                   />
                 </div>
                 
@@ -119,6 +152,8 @@ export default function Upload() {
                   <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description</label>
                   <textarea 
                     rows="4"
+                    value={formData.description}
+                    onChange={(e) => setFormData({...formData, description: e.target.value})}
                     placeholder="Tell the story behind your artwork..."
                     className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
                   />
@@ -127,7 +162,11 @@ export default function Upload() {
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Category</label>
-                    <select className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all">
+                    <select 
+                      value={formData.category}
+                      onChange={(e) => setFormData({...formData, category: e.target.value})}
+                      className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                    >
                       <option value="nft">NFT</option>
                       <option value="photo">Photography</option>
                       <option value="painting">Painting</option>
@@ -140,15 +179,18 @@ export default function Upload() {
                     <input 
                       type="number" 
                       step="0.01"
+                      value={formData.price}
+                      onChange={(e) => setFormData({...formData, price: e.target.value})}
                       placeholder="0.00"
                       className="w-full px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-900 focus:ring-2 focus:ring-purple-500 focus:border-transparent outline-none transition-all"
+                      required
                     />
                   </div>
                 </div>
               </div>
 
               <div className="pt-4">
-                <Button className="w-full" size="lg">Upload Artwork</Button>
+                <Button className="w-full" size="lg" type="submit">Upload Artwork</Button>
               </div>
             </form>
           </CardContent>
