@@ -70,27 +70,28 @@ export default function GalleryGrid() {
         <Modal isOpen={!!selectedWork} onClose={() => setSelectedWork(null)}>
           {selectedWork && (
             <div className="flex flex-col md:flex-row h-full max-h-[80vh] md:max-h-none relative">
-              {/* Navigation Buttons */}
-              <button 
-                onClick={(e) => { e.stopPropagation(); handlePrev(); }}
-                className="absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors md:left-4"
-              >
-                <ChevronLeft size={24} />
-              </button>
-              <button 
-                onClick={(e) => { e.stopPropagation(); handleNext(); }}
-                className="absolute right-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors md:right-[52%] lg:right-[52%]"
-              >
-                <ChevronRight size={24} />
-              </button>
-
-              <div className="md:w-1/2 h-64 md:h-auto relative bg-black/5">
+              <div className="md:w-1/2 h-64 md:h-auto relative bg-black/5 group">
                 <img 
                   src={selectedWork.image} 
                   alt={selectedWork.title} 
                   className="h-full w-full object-contain md:object-cover"
                 />
+                
+                {/* Navigation Buttons */}
+                <button 
+                  onClick={(e) => { e.stopPropagation(); handlePrev(); }}
+                  className="absolute left-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+                <button 
+                  onClick={(e) => { e.stopPropagation(); handleNext(); }}
+                  className="absolute right-2 top-1/2 -translate-y-1/2 z-10 p-2 bg-black/50 text-white rounded-full hover:bg-black/70 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                >
+                  <ChevronRight size={24} />
+                </button>
               </div>
+              
               <div className="p-6 md:w-1/2 flex flex-col justify-between overflow-y-auto">
                 <div>
                   <h2 className="text-3xl font-bold mb-2 text-gray-900 dark:text-white">{selectedWork.title}</h2>
